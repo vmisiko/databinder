@@ -40,7 +40,13 @@ def dob_id_format(dob,gender, id_num):
     dob1= dob.split("/")
     year = dob1[2][-2:]
     month = dob1[1]
-    day = dob1[0]
+    day1 = dob1[0]
+    day =""
+    if int(day1)<10:
+        day = "0"+str(day1)
+    else:
+        day =str(day1)
+
     dob= year + month + day
     fixed ="1702150"
     id_num ="B00"+id_num
@@ -89,11 +95,10 @@ def convert_csv(sender, instance, *args, **kwargs):
         dob = row[5]
         gender =row[6]
         fixed= "IDKYA2441216280<<3981<<<<<3982"
-        name_section = name_format(first_name, middle_name,last_name)
         dob_id= dob_id_format(dob, gender,id_num)
-        # print(fixed + "\n" +dob_id + "\n" + name_section)
-        dobf =datetime.datetime.strptime( dob, "%d/%m/%Y")
-        FormModel.objects.create(
+        name_section = name_format(first_name, middle_name,last_name)
+        dobf = datetime.datetime.strptime( dob, "%d/%m/%Y")
+        form = FormModel.objects.create(
                 user=instance.user,
                 first_name=first_name,
                 middle_name=middle_name,
@@ -105,6 +110,10 @@ def convert_csv(sender, instance, *args, **kwargs):
                 dob_id_section=dob_id,
                 name_section=name_section,
             )
+
+        form.save()
+        
+        
 
 
 

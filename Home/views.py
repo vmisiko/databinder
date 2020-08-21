@@ -92,7 +92,13 @@ def dob_id_format(dob,gender, id):
     if len(str(month))==1:
         month = "0"+month
     print(month)
-    day = dob.day
+    day1 = dob.day
+    day =""
+    if int(day1)<10:
+        day = "0"+str(day1)
+    else:
+        day= day1
+
     dob2= str(year)[-2:]
     dob= dob2 + str(month) + str(day)
     fixed ="1702150"

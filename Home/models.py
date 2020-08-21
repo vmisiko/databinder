@@ -9,7 +9,7 @@ sex= {
 }
 
 class FormModel(models.Model):
-    user= models.CharField(max_length=200, )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete = models.CASCADE,null=True, blank=True)
     first_name =models.CharField(max_length=200, )
     middle_name =models.CharField(max_length=200, )
     last_name= models.CharField(max_length=200, )
