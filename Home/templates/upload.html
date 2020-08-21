@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<v-container id=upload class="mt-5">
+
+    <div class="text-center">
+        <p class="text-muted" >
+            For your upload to work, you need a csv format in a specific format. If this is your first time, please 
+            download the sample file below and replace 'author' with your User ID as provided in the Dashboard. Make
+             sure especially the 'dob' field is well-formatted.
+
+
+        </p>
+         <v-btn class="btn btn-info " dark> Download Samle File</v-btn>
+    </div>
+
+    <hr>
+    <div class="text-center">
+        <v-form ref="uplodform" v-model="valid" action="" method="POST" enctype="multipart/form-data" lazy-validation >
+            {% csrf_token %}
+            <v-file-input name="file" accept=".csv" label="Upload your excel file here" :rules="[ v => !!v || 'Item is required']" v-model="file" chips multiple required></v-file-input>
+               
+            <v-btn class="btn btn-primary"  dark type="submit" >
+                Upload
+            </v-btn>
+            
+        </v-form>
+     
+
+    </div>
+
+</v-container>
+
+{% endblock content %}
+
+{% block script %}
+
+<script>
+    new Vue({
+        el:"#upload",
+        vuetify: new Vuetify(),
+        delimiters:["[[","]]"],
+        data:()=>({
+            msg:"hey this is multiple upload page",
+            valid:true,
+            file:[],
+            rules: [
+                v => !! v ||'File is required',
+                value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+            ],
+        }),
+        mounted () {
+            this.$refs.uplodform.validate();
+        },
+        methods:{
+            submit (){
+
+                if (this.$refs.uplodform.validate()) {
+                    // alert("varlidated")
+                    this.$refs.uplodform.submit();
+
+                }
+            }
+        }
+       
+    })
+</script>
+{% endblock script %}

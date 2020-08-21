@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{%  load crispy_forms_tags %}
+{% block content %}
+
+    <div class="mt-5 col-lg-4 col-md-12 mx-auto">
+        <div class="card mb-5">
+            <div class="card-header text-center">
+                Add person
+            </div>
+
+            <div class="card-body">
+                <form method="POST" action="" class=""  @submit.prevent="submit" id="uploadform">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {{ form.first_name | as_crispy_field }}
+                      </div>
+
+                    <div class="form-group ">
+                        {{ form.middle_name | as_crispy_field }}
+                      </div>
+                    <div class="form-group ">
+                        {{ form.last_name | as_crispy_field }}
+                      </div>
+                    <div class="form-group">
+                        {{ form.Id_number | as_crispy_field }}
+                      </div>
+                      <div class="form-group ">
+                        {{ form.dob | as_crispy_field }}
+                      </div>
+                      <div class="form-group ">
+                        {{ form.gender | as_crispy_field }}
+                      </div>
+
+                    
+                      
+                        <v-btn block type="submit" class="btn btn-primary" dark > Generate </v-btn>
+                      
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+<!-- Central Modal Medium Success -->
+<div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      
+      <!--Body-->
+      <div class="modal-body">
+        <div class="code text-center">
+          
+            <p >
+              [[ result.fixed ]] <br>
+              [[result.dob_id_section ]] <br>
+              [[ result.name_section ]]
+          </p>
+        </div>
+      </div>
+
+    
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Central Modal Medium Success-->
+
+<!-- overlays  -->
+<div class="text-center">
+  <v-btn
+    color="deep-purple accent-4"
+    class="white--text"
+    @click="overlay = !overlay"
+  >
+    Launch Application
+    <v-icon right>mdi-open-in-new</v-icon>
+  </v-btn>
+
+  <v-overlay :value="overlay">
+    <v-progress-circular indeterminate size="64"></v-progress-circular>
+  </v-overlay>
+</div>
+<!-- overlays -->
+
+{% endblock content %}
+
+{% block style %}
+<style>
+  .code {
+    font-family:"OCR B Std",monospace !important;
+    font-size: 1em !important;
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+</style>
+{% endblock style %}
+
+{% block script %}
+
+<script>
+    new Vue({
+        el:"#app",
+        delimiters:["[[", "]]"],
+        data:()=> ({
+           msg:"massage vue in form" ,
+           dialog:false,
+           overlay:false,
+           result:{},
+        }),
+        methods: {
+          submit() {
+            var data = $("#uploadform").serialize()
+            this.overlay=!this.overlay
+            axios.post("{% url 'Home:create_record' %}",
+              data
+            ).then( (res) => {
+                this.overlay=!this.overlay
+                if (res.data.errors==null) {
+                  this.result = res.data
+                  $("#centralModalSuccess").modal("show");
+                  $('#uploadform').trigger("reset");
+
+                }
+                else{
+                    var errors =JSON.parse(res.data.errors)
+                    if ($("input").next('p').length) $("input").nextAll('p').empty();
+                    for (var name in errors) {
+                    for (var i in errors[name]) {
+                      // object message error django
+                      var $input = $("input[name='"+ name +"']");
+                      $input.after("<p class ='red-text'>" + errors[name][i].message + "</p>");
+                        }
+                      }
+
+                }
+
+            }).catch( (e) =>{
+                console.log(e)
+
+            })
+          }
+        },
+
+    })
+</script>
+
+{% endblock script %}

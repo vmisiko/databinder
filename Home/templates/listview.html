@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<v-container class="mt-4">
+    <div class="d-flex flex-column justify-items-center align-items-center">
+
+   
+        <div class="text-center">
+
+            <a href="/record/create/" class="btn btn-primary">Add Single Record</a>
+            <a href="/record/multiple/" class="btn btn-success">Mass Records Upload</a>
+            
+            <hr>
+        </div>
+
+        <div  >
+            {% for obj in object_list %}
+
+            <div class="id_card">
+                <div class="aligned">
+                    <p>
+                        <strong>NO</strong>: {{forloop.revcounter }} <br>
+                        <strong>ID Number</strong>: {{obj.Id_number}} <br>
+                        <strong>Name</strong>: {{obj.first_name}} {{obj.middle_name}} {{obj.last_name}} <br>
+                        <strong>Date of Birth</strong>: {{ obj.dob }}
+                    </p>
+                </div>
+                <p class="code aligned">
+                    {{obj.fixed}} <br>
+                    {{obj.dob_id_section}} <br>
+                    {{ obj.name_section }}
+                </p>
+                
+            </div>
+
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+</v-container>
+
+{% endblock content %}
+
+
+{% block style %}
+<style>
+
+    strong{
+     font-weight:bold;
+    }
+    .id_card {
+    /* display: flex; */
+    /* flex-direction: column; */
+    width: 420px;
+    padding: 2rem;
+    border-radius: 6px;
+    border: 1px solid darkgray;
+    margin-top: 4px;
+}
+.code {
+    font-family:"OCR B Std",monospace !important;
+    font-size: 1em !important;
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+
+.id_card > .aligned {
+    margin-left: 2.4rem;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+</style>
+{% endblock style %}
+
+{% block script %}
+
+<script>
+    new Vue ({
+        el:"#app",
+        delimiters:['[[', ']]'],
+        vuetify: new Vuetify(),
+    
+        data: ()=> ({
+            msg:"hey whatasapp",
+            code1:"IDKYA2441216280<<3981<<<<<3982",
+            code2:"4412312F1702150<B0003413936M<<",
+            code3:"JOSPHAT<OTWELO<OPIAYO<<<<<<<<<"
+        }),
+    })
+    </script>
+
+{% endblock script %}

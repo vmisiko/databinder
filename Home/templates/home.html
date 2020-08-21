@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+    {% block content %}
+    <main class=" container ">
+        <div class="col-6 mx-auto">
+            <div class="card mx-auto ">
+                <div class="card-header text-center ">
+                    Welcome {{request.user|title}}
+                </div>
+    
+                <div class="card-body">
+                    <p>Please take note of the following info which might be necessary going forward:</p>
+
+                    <table class="table ">
+
+      
+                        
+                        <tbody>
+                          <tr>
+                            <td>
+                                Your User ID:
+                            </td>
+                            <td>
+                                {{request.user.id}}
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td>
+                                Your Phone Number:
+                            </td>
+                            <td>
+                               {% if profile.phone_number %}
+                                {{profile.phone_number}}
+                               {% else %}
+                                Blank ___
+                               {% endif %}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                Your Email
+                            </td>
+                            <td>
+                                {{profile.email}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                Your Name
+                            </td>
+                            <td>
+                                {{request.user}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                Date Registered
+                            </td>
+                            <td>
+                                {{profile.date}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                Amount Deposited
+                            </td>
+                            <td>
+                                {{profile.amountD}}
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td>
+                                Amount Spent
+                            </td>
+                            <td>
+                                {{profile.amountS}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                Account balance
+                            </td>
+                            <td>
+                                {{profile.amountB}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        
+                        </table>
+    
+                </div>
+            </div>
+        </div>
+  
+    </main>
+
+
+    {% endblock content %}
+</body>
+</html>
+{% block script %}
+<script>
+
+    new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data: () =>  ({
+            msg:"hello victor",
+        })
+    })
+
+
+</script>
+ {% endblock script %}
