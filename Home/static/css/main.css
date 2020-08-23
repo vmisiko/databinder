@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Sacramento&display=swap');
+@font-face {
+    font-family: "OCR B Std";
+    src: url("../OCRBStd.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+    font-family: 'Nunito', sans-serif;
+    font-family: 'Sacramento', cursive;
+*/
+
+body {
+    font-family: 'Nunito', sans-serif;
+    width: 100vw;
+}
+
+nav.navbar {
+    padding-right: 6rem !important;
+}
+
+.id_card {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    width: 420px;
+    padding: 2rem;
+    border-radius: 6px;
+    border: 1px solid darkgray;
+    margin-top: 4px;
+}
+.code {
+    font-family: 'OCR B Std' !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+
+.data > span {
+    font-weight: 600;
+}
+.id_card > .aligned {
+    margin-left: 2.4rem;
+}
+
+@media only screen and (max-width: 992px) {
+      nav.navbar {
+        padding-right: 1rem !important;
+    }
+}
