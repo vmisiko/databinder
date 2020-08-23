@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <v-container id=upload class="mt-5">
@@ -11,7 +12,8 @@
 
 
         </p>
-         <v-btn class="btn btn-info " dark> Download Samle File</v-btn>
+        <a href='{% static "csv_sample_file.csv" %}' download><v-btn class="btn btn-info " dark> Download Samle File</v-btn></a>
+
     </div>
 
     <hr>
@@ -20,9 +22,9 @@
             {% csrf_token %}
             <v-file-input name="file" accept=".csv" label="Upload your excel file here" :rules="[ v => !!v || 'Item is required']" v-model="file" chips multiple required></v-file-input>
                
-            <v-btn class="btn btn-primary"  dark type="submit" >
+            <a href="{% static 'csv_sample_file.csv' %}" ><v-btn class="btn btn-primary"  dark type="submit" >
                 Upload
-            </v-btn>
+            </v-btn></a>
             
         </v-form>
      
