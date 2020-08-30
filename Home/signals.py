@@ -37,10 +37,13 @@ def account_update(sender, instance, *args, **kwargs):
 def dob_id_format(dob,gender, id_num):
 #     part=f"{dob},{gender},{id_num}"
     dob= str(dob)
+    print(dob, gender, id_num)
     dob1= dob.split("/")
+    print(dob1)
     year = dob1[2][-2:]
     month = dob1[1]
     day1 = dob1[0]
+
     day =""
     if int(day1)<10:
         day = "0"+str(day1)
@@ -57,9 +60,9 @@ def dob_id_format(dob,gender, id_num):
 
 def name_format(first, middle,last):
 
-    first = first.upper()
-    middle = middle.upper()
-    last = last.upper()
+    first = str(first).upper()
+    middle = str(middle).upper()
+    last = str(last).upper()
     part= first +"<"+ middle + "<" +last
     sub = 30 - len(part)
     final=""
@@ -87,6 +90,7 @@ def convert_csv(sender, instance, *args, **kwargs):
     path =instance.csv_file.path
     data =pd.read_csv(path)
     data["id_number"] = data["id_number"].apply(myrecode)
+
     for index, row in data.iterrows():
         first_name =row[1]
         middle_name=row[2]
