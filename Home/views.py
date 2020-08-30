@@ -158,7 +158,7 @@ class UploadMutiple(View):
 
 class ListFiles(ListView):
     model = FormModel
-    paginate_by = 20
+    # paginate_by = 20
     template_name = "listview.html"
 
     def get_queryset(self):

@@ -89,6 +89,8 @@ def convert_csv(sender, instance, *args, **kwargs):
 
     path =instance.csv_file.path
     data =pd.read_csv(path)
+    data = data.replace(np.nan, '', regex=True)
+
     data["id_number"] = data["id_number"].apply(myrecode)
 
     for index, row in data.iterrows():
