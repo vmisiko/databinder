@@ -1,6 +1,7 @@
-import pandas as pd
 import random
 import os
+import pandas as pd
+import numpy as np
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from allauth.account.signals import user_signed_up
@@ -68,6 +69,8 @@ def name_format(first, middle,last):
     final=""
     if sub > 0:
         final = part + "<"*sub
+    else:
+        final = part
     return final
 
 
@@ -104,7 +107,8 @@ def convert_csv(sender, instance, *args, **kwargs):
         dob_id= dob_id_format(dob, gender,id_num)
         name_section = name_format(first_name, middle_name,last_name)
         dobf = datetime.datetime.strptime( dob, "%d/%m/%Y")
-        form = FormModel.objects.create(
+        print(index, first_name,middle_name,last_name )
+        FormModel.objects.create(
                 user=instance.user,
                 first_name=first_name,
                 middle_name=middle_name,
@@ -117,7 +121,8 @@ def convert_csv(sender, instance, *args, **kwargs):
                 name_section=name_section,
             )
 
-        form.save()
+        
+
         
         
 
