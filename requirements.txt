@@ -70,8 +70,8 @@ paypalrestsdk==1.13.1
 phonenumbers==8.11.2
 Pillow==6.2.1
 pinax-referrals==3.0.3
-psycopg2==2.9.3
-psycopg2-binary==2.9.3
+psycopg2==2.8.6
+psycopg2-binary==2.8.6
 pyasn1==0.4.8
 pyasn1-modules==0.2.7
 pycparser==2.19
