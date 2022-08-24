@@ -53,10 +53,15 @@ def dob_id_format(dob,gender, id_num):
 
     dob= year + month + day
     fixed ="1702150"
-    id_num ="B00"+id_num
+    id_number = id_num
+    len_id= len(id_number)
+    sub = 8 - int(len_id)  
+    if  sub >0:
+        id_number= "0"*sub + id_number
+    id ="B0"+id_number
     rand= random.randint(0, 9)
     gender = gender
-    part = dob+str(rand)+gender+fixed + "<" + id_num +gender +"<<"
+    part = dob+str(rand)+gender+fixed + "<" + id_num +gender +"<<2"
     return str(part)
 
 def name_format(first, middle,last):
@@ -94,7 +99,7 @@ def convert_csv(sender, instance, *args, **kwargs):
     data =pd.read_csv(path)
     data = data.replace(np.nan, '', regex=True)
 
-    data["id_number"] = data["id_number"].apply(myrecode)
+    # data["id_number"] = data["id_number"].apply(myrecode)
 
     for index, row in data.iterrows():
         first_name =row[1]

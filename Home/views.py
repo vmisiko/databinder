@@ -48,10 +48,10 @@ class RecordAddView(View):
             id_number =form.cleaned_data.get("Id_number")
             dob = form.cleaned_data.get("dob")
             gender = form.cleaned_data.get("gender")
-            len_id= len(id_number)
-            sub = 8 - int(len_id)  
-            if  sub >0:
-                id_number= "0"*sub + id_number
+            # len_id= len(id_number)
+            # sub = 8 - int(len_id)  
+            # if  sub >0:
+            #     id_number= "0"*sub + id_number
 
             # print(id_number , "this is formated id number")
 
@@ -102,10 +102,15 @@ def dob_id_format(dob,gender, id):
     dob2= str(year)[-2:]
     dob= dob2 + str(month) + str(day)
     fixed ="1702150"
-    id ="B00"+id
+    id_number = id
+    len_id= len(id_number)
+    sub = 8 - int(len_id)  
+    if  sub >0:
+        id_number= "0"*sub + id_number
+    id ="B0"+id_number
     rand= str(random.randint(0, 9))
     gender = gender
-    part = dob+rand+gender+fixed + "<" + id +gender +"<<"
+    part = dob+rand+gender+fixed + "<" + id +gender +"<<2"
     return part
 
 def name_format(first, middle,last):
